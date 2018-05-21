@@ -9,6 +9,10 @@ import matplotlib.patches as mpatches
 import numpy as np
 import ipdb
 
+def rgba_to_rgb_using_white_bg(rgb_array, alpha):
+    ret = [i*alpha+(1-alpha) for i in rgb_array]+[1]
+    return ret
+
 
 if __name__ == '__main__':
     model = joblib.load("models/skill 5/introspection_model") 
@@ -48,22 +52,23 @@ if __name__ == '__main__':
 
 
     fig, ax = plt.subplots(nrows=1, ncols=1)
+    ax.fill_between(range(len(succ_upper_bound)), succ_lower_bound, succ_upper_bound, color=rgba_to_rgb_using_white_bg((0,0,1), 0.25))
 
     for ys in list_of_processed_succ_curve:
-        ax.plot(ys, color='blue', alpha=0.25)
+        ax.plot(ys, color=rgba_to_rgb_using_white_bg((0,0,1), 0.7))
+
     for ys in list_of_processed_unsucc_curve:
         ax.plot(ys, color='red')
 
     ax.plot(succ_mean, color='black', linewidth=3)
     
-    ax.fill_between(range(len(succ_upper_bound)), succ_lower_bound, succ_upper_bound, color='blue', alpha=0.25)
 
     ax.set_ylim(bottom=-100, top=4500)
     ax.set_xlim(-1, 99)
 
-    blue_patch = mpatches.Patch(color='blue', alpha=0.25, label='Normal trials: mean+-2*std')
+    blue_patch = mpatches.Patch(color=rgba_to_rgb_using_white_bg((0,0,1), 0.25), label='Normal trials: mean+-2*std')
     black_line = mlines.Line2D([], [], color='black', linewidth=4, label="Normal trials: mean")
-    succ_line = mlines.Line2D([], [], color='blue', alpha=0.25, label="Normal trials")
+    succ_line = mlines.Line2D([], [], color=rgba_to_rgb_using_white_bg((0,0,1), 0.7), label="Normal trials")
     red_line = mlines.Line2D([], [], color='red', label="Anomalous trials")
     ax.legend(handles=[succ_line, red_line, black_line, blue_patch])
     
