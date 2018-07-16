@@ -1,0 +1,44 @@
+import glob
+import os
+import coloredlogs, logging
+import pickle
+import matplotlib.pyplot as plt
+import pandas as pd
+import ipdb
+
+coloredlogs.install()
+
+if __name__ == '__main__':
+    logger = logging.getLogger("plot_anomalous_signals.main")
+    dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
+    for csv in glob.glob(os.path.join(dir_of_this_script, "data", "*", "*csv")):
+        relpath = os.path.relpath(csv, os.path.join(dir_of_this_script))
+        logger.info(relpath) 
+        ipdb.set_trace()
+
+        anomaly_type, anomaly_gentime = pickle.load(open(os.path.join(os.path.dirname(csv), "anomaly_label_and_signal_time.pkl"), 'rb')) 
+
+        df = pd.read_csv(csv)
+        s_t = df.iloc[0, 0]
+        df.iloc[:, 0] = df.iloc[:, 0]-s_t
+        anomaly_time = anomaly_gentime.to_sec()-s_t
+
+        csv_name = os.path.basename(relpath)
+        f,ax = plt.subplots(nrows=1, ncols=1)
+        df.plot(ax=ax, x=df.keys()[0], y=df.keys()[1::], title=csv_name, colormap='jet', legend=False)
+
+        ax.plot(df.iloc[:, 0], df[dim])
+        ax.axvline(anomaly_time, c='red')
+
+        xmin,xmax = ax.get_xlim()
+        ymin,ymax = ax.get_ylim()
+        ax.text(anomaly_time+0.01*(xmax-xmin), ymax-0.05*(ymax-ymin), 'anomaly signal', color='red', rotation=-90)
+
+        ax.set_xlabel("seconds")
+        
+        output_dir = os.path.join(dir_of_this_script, "plots", 'plot_dims')        
+
+        if not os.path.isdir(output_dir):
+            os.makedirs(output_dir)
+        f.savefig(os.path.join(output_dir, "%s.eps"% "anomaly type: %s"%anomaly_type + csv_name))
+        plt.close(f)

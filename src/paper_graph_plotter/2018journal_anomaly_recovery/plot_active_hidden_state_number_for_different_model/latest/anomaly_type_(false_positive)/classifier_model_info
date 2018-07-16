@@ -1,0 +1,45 @@
+{
+    "loklik of all input mat": [
+        2339.7388119416005, 
+        -15320.385806259495, 
+        2468.747115265729, 
+        2430.996271030744, 
+        -1648.0472868415532, 
+        2404.727261591437
+    ], 
+    "size_of_train_set": 4, 
+    "find_best_model_in_this_config": {
+        "alloModel": "HDPHMM", 
+        "varMethod": [
+            "memoVB"
+        ], 
+        "K": 10, 
+        "n_iteration": 1000, 
+        "ECovMat": [
+            "covdata"
+        ], 
+        "obsModel": "AutoRegGauss"
+    }, 
+    "score_metric": "_score_metric_sum_of_loglik_", 
+    "size_of_test_set": 2, 
+    "test_score": 16968.433093101048, 
+    "training_report": [
+        {
+            "model_config": {
+                "alloModel": "HDPHMM", 
+                "varMethod": "memoVB", 
+                "K": 10, 
+                "n_iteration": 1000, 
+                "ECovMat": "covdata", 
+                "obsModel": "AutoRegGauss"
+            }, 
+            "cv_score_mean": -381.26219693494266, 
+            "cv_score_std": 1231.483787266339
+        }
+    ], 
+    "mean_and_std_of_the_norm_distribution": [
+        -1220.7039388785895, 
+        6477.539638031122
+    ], 
+    "model_type": "BNPY's HMM"
+}

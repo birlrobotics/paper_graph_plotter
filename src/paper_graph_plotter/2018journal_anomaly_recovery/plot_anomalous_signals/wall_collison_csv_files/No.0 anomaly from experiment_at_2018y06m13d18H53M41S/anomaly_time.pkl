@@ -1,0 +1,15 @@
+ccopy_reg
+_reconstructor
+p0
+(cgenpy.rostime
+Time
+p1
+c__builtin__
+object
+p2
+Ntp3
+Rp4
+(lp5
+I1528887200
+aI430978059
+ab.
