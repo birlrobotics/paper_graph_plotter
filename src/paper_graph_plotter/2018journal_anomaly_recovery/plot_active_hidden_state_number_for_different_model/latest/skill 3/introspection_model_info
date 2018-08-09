@@ -1,0 +1,59 @@
+{
+    "size_of_test_set": 3, 
+    "size_of_train_set": 7, 
+    "find_best_model_in_this_config": {
+        "n_iter": 1000, 
+        "n_components": [
+            1, 
+            3, 
+            5, 
+            7, 
+            9
+        ], 
+        "covariance_type": [
+            "full"
+        ]
+    }, 
+    "score_metric": "_score_metric_sum_of_loglik_", 
+    "test_score": 672.47496529717228, 
+    "threshold_for_introspection": -364.5440222688913, 
+    "training_report": [
+        {
+            "model_config": {
+                "n_iter": 1000, 
+                "n_components": 1, 
+                "covariance_type": "full"
+            }, 
+            "cv_score_mean": -2449.6371234600206, 
+            "cv_score_std": 1091.5885135411088
+        }, 
+        {
+            "model_config": {
+                "n_iter": 1000, 
+                "n_components": 3, 
+                "covariance_type": "full"
+            }, 
+            "cv_score_mean": -756.76156819906942, 
+            "cv_score_std": 1320.0760197526231
+        }, 
+        {
+            "model_config": {
+                "n_iter": 1000, 
+                "n_components": 5, 
+                "covariance_type": "full"
+            }, 
+            "cv_score_mean": 1710.6282103653182, 
+            "cv_score_std": 2164.117306137266
+        }, 
+        {
+            "model_config": {
+                "n_iter": 1000, 
+                "n_components": 7, 
+                "covariance_type": "full"
+            }, 
+            "cv_score_mean": 6511.7954204015277, 
+            "cv_score_std": 5610.4626048172368
+        }
+    ], 
+    "model_type": "hmmlearn's HMM"
+}

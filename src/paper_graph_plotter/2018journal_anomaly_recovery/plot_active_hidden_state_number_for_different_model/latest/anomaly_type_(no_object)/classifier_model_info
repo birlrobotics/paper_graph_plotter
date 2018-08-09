@@ -1,0 +1,54 @@
+{
+    "loklik of all input mat": [
+        2552.094077262697, 
+        2548.1325552769267, 
+        2594.041170933438, 
+        2538.4176623250332, 
+        2634.0252135633464, 
+        2416.020622188144, 
+        2362.048860307545, 
+        2649.691812344268, 
+        2563.1747383020315, 
+        2504.1587896653746, 
+        2562.7724648432295, 
+        2610.2385238021584, 
+        2573.148472601947, 
+        2435.6925407753565, 
+        2484.8595549436513
+    ], 
+    "size_of_train_set": 11, 
+    "find_best_model_in_this_config": {
+        "alloModel": "HDPHMM", 
+        "varMethod": [
+            "memoVB"
+        ], 
+        "K": 10, 
+        "n_iteration": 1000, 
+        "ECovMat": [
+            "covdata"
+        ], 
+        "obsModel": "AutoRegGauss"
+    }, 
+    "score_metric": "_score_metric_sum_of_loglik_", 
+    "size_of_test_set": 4, 
+    "test_score": -9821.018618351585, 
+    "training_report": [
+        {
+            "model_config": {
+                "alloModel": "HDPHMM", 
+                "varMethod": "memoVB", 
+                "K": 10, 
+                "n_iteration": 1000, 
+                "ECovMat": "covdata", 
+                "obsModel": "AutoRegGauss"
+            }, 
+            "cv_score_mean": -7920.7820756225965, 
+            "cv_score_std": 1654.0493778972818
+        }
+    ], 
+    "mean_and_std_of_the_norm_distribution": [
+        2535.23447060901, 
+        78.73934381898907
+    ], 
+    "model_type": "BNPY's HMM"
+}
