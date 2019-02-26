@@ -16,7 +16,6 @@ def run():
             hmm_model = model['hmm_model']
         except:
             print ('Cannot load the specific hmm_model:%s'%model_type)
-        ipdb.set_trace()
 
 if __name__=='__main__':
     run()

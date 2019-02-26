@@ -5,6 +5,8 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.rcParams.update({'font.size': 12})
+plt.rcParams["font.family"] = "Time New Roman"
+
 import pandas as pd
 import ipdb
 
@@ -13,9 +15,15 @@ coloredlogs.install()
 if __name__ == '__main__':
     logger = logging.getLogger()
     dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
-    for csv in glob.glob(os.path.join(dir_of_this_script, "whole_success_exp", "*", "*csv")):
-        f,ax = plt.subplots(nrows=1, ncols=1)
-        ax.set_title("Multimodal signals of whole non-anomalous experiment")
+    nfiles = len(glob.glob(os.path.join(dir_of_this_script, "multi_whole_success_exps", "*", "*csv")))
+    f,axarr = plt.subplots(nrows=nfiles, ncols=1, sharex=True, figsize=(8, 7))
+    f.tight_layout()
+    for i, csv in enumerate(glob.glob(os.path.join(dir_of_this_script, "multi_whole_success_exps", "*", "*csv"))):
+        print i
+        print csv
+        print 
+        ax = axarr[i]
+        ax.set_title("Multimodal signals of norminal execution #%s" %(i+1))
         relpath = os.path.relpath(csv, os.path.join(dir_of_this_script))
         logger.info(relpath) 
         df = pd.read_csv(csv)
@@ -46,11 +54,13 @@ if __name__ == '__main__':
                 print ('Ignore the useless tag=0')
                 continue
                 ax.axvline(start, c = 'gray')
-        ax.set_xlabel("Time(secs)")
-        ax.set_ylabel("Scaled Magnitude")
-        output_dir = os.path.join(dir_of_this_script, 'plots')        
-        if not os.path.isdir(output_dir):
-            os.makedirs(output_dir)
-        f.savefig(os.path.join(output_dir, "%s.png"%relpath[-38:]),dpi=300)
+        ax.set_ylabel("Scaled Value")
+    axarr[nfiles-1].set_xlabel("Time(secs)")
+    output_dir = os.path.join(dir_of_this_script, 'plots')        
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
+    f.savefig(os.path.join(output_dir, "multi_whole_success_exps.png"),format='png', dpi=300)
+    #f.savefig(os.path.join(output_dir, "multi_whole_success_exps.eps"),format='eps', dpi=300)
+    #f.savefig(os.path.join(output_dir, "multi_whole_success_exps.pdf"),format='pdf', dpi=300)        
     plt.show()
         
