@@ -28,7 +28,7 @@ if __name__ == '__main__':
             tag_stime.append((tag, st.to_sec()-s_t, et.to_sec()-s_t))
 
         csv_name = os.path.basename(relpath)
-        df.plot(ax=ax, x=df.keys()[0], y=df.keys()[1::],  colormap='jet',marker='.', legend=False)
+        df.plot(ax=ax, x=df.keys()[0], y=df.keys()[1:7],  colormap='jet',legend=False)
         xmin,xmax = ax.get_xlim()
         ymin,ymax = ax.get_ylim()
 
@@ -47,10 +47,10 @@ if __name__ == '__main__':
                 continue
                 ax.axvline(start, c = 'gray')
         ax.set_xlabel("Time(secs)")
-        ax.set_ylabel("Scaled Magnitude")
+        ax.set_ylabel("Force/Torque")
         output_dir = os.path.join(dir_of_this_script, 'plots')        
         if not os.path.isdir(output_dir):
             os.makedirs(output_dir)
         f.savefig(os.path.join(output_dir, "%s.png"%relpath[-38:]),dpi=300)
-    plt.show()
+        plt.show()
         

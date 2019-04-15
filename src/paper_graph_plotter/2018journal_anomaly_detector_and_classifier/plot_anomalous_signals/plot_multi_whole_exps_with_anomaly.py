@@ -16,6 +16,7 @@ if __name__ == '__main__':
     dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
     nfiles = len(glob.glob(os.path.join(dir_of_this_script, "whole_exp_with_one_anomaly", "*", "*csv")))
     f,axarr = plt.subplots(nrows=nfiles, ncols=1, sharex =True, figsize=(12,18))
+    f.tight_layout()    
     for i, csv in enumerate(glob.glob(os.path.join(dir_of_this_script, "whole_exp_with_one_anomaly", "*", "*csv"))):
         ax = axarr[i]
         relpath = os.path.relpath(csv, os.path.join(dir_of_this_script))
