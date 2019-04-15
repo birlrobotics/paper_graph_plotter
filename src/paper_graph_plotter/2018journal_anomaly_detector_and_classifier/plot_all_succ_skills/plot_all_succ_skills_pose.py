@@ -16,7 +16,8 @@ coloredlogs.install()
 
 if __name__ == '__main__':
     logger = logging.getLogger()
-    dir_of_this_script = os.path.dirname(os.path.realpath(__file__))    
+    dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
+    
     data_path = '/home/birl-spai-ubuntu14/baxter_ws/src/SPAI/smach_based_introspection_framework/birl_anomaly_dataset/anomaly_detection_feature_selection_folder/No.0 filtering scheme/successful_skills/skill 3'
     
     fig = plt.figure()
@@ -32,10 +33,12 @@ if __name__ == '__main__':
         df.iloc[:, 0] = df.iloc[:, 0]-s_t
         select_list = ['baxter_enpoint_pose.pose.position.x','baxter_enpoint_pose.pose.position.y','baxter_enpoint_pose.pose.position.z']
         values = df[select_list].values
-        ax.plot(values[:,0],values[:,1],values[:,2])
-    # handles, labels = plt.gca().get_legend_handles_labels()
-    # by_label = OrderedDict(zip(labels, handles))
-    # plt.legend(by_label.values(), by_label.keys())
+        ax.plot(values[:,0],values[:,1],values[:,2], label = "position")
+        ax.scatter(values[0,0],values[0,1],values[0,2], c = "gray", label = "start")
+        ax.scatter(values[-1,0],values[-1,1],values[-1,2], c = 'blue' , label = "end")        
+    handles, labels = plt.gca().get_legend_handles_labels()
+    by_label = OrderedDict(zip(labels, handles))
+    plt.legend(by_label.values(), by_label.keys())
     # Get rid of colored axes planes
     # First remove fill
     ax.xaxis.pane.fill = False
