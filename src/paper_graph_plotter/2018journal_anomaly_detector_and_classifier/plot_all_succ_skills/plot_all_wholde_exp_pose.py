@@ -28,9 +28,6 @@ if __name__ == '__main__':
               9:'y'
                   }
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
-        print i
-        print csv
-        print 
         df = pd.read_csv(csv)
         s_t = df.iloc[0, 0]
         df.iloc[:, 0] = df.iloc[:, 0]-s_t
@@ -55,30 +52,12 @@ if __name__ == '__main__':
                     ax.plot(values[:,0],values[:,1],values[:,2], color=colors[tag], label='Skill ' + str(tag), alpha=0.5)
                     try:
                         ax.scatter(values[0,0],values[0,1],values[0,2], c = colors[tag], label = "start")
+                        #ax.scatter(values[-1,0],values[-1,1],values[-1,2], c = 'blue' , label = "end")        
                     except Exception as e:
                         logger.error("error encountered ")
                         continue
                     
-#                    ax.scatter(values[-1,0],values[-1,1],values[-1,2], c = 'blue' , label = "end")        
-        # xmin,xmax = ax.get_xlim()
-        # ymin,ymax = ax.get_ylim()
-
-        # for tag, start, end in tag_stime:
-        #     if int(tag) != 0:
-        #         if int(tag) < 0:
-        #             print ('Ignore the anomaly tag < 0')
-        #             continue
-        #             c = 'red'
-        #         else:
-        #             c = 'green'
-        #         # ax.axvline(start, c=c)
-        #         # ax.text(start, ymax-0.05*(ymax-ymin), 'skill %s'%tag, color=c, rotation=-90)
-        #     else:
-        #         print ('Ignore the useless tag=0')
-        #         continue
-        #         ax.axvline(start, c = 'gray')   
-        # ax.set_ylabel("Scaled Value")
-        if i > 100: break
+        if i > 300: break
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))
     plt.legend(by_label.values(), by_label.keys())
@@ -88,4 +67,6 @@ if __name__ == '__main__':
         os.makedirs(output_dir)
     fig.savefig(os.path.join(output_dir, "multi_whole_exps.png"),format='png', dpi=300)
     plt.show()
+        
+
         
