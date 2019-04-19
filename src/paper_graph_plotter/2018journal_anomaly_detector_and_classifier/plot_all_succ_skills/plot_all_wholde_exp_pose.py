@@ -49,7 +49,7 @@ if __name__ == '__main__':
                                    'baxter_enpoint_pose.pose.position.y',
                                    'baxter_enpoint_pose.pose.position.z']
                     values = tag_df[select_list].values
-                    ax.plot(values[:,0],values[:,1],values[:,2], color=colors[tag], label='Skill ' + str(tag), alpha=0.5)
+                    #ax.plot(values[:,0],values[:,1],values[:,2], color=colors[tag], label='Skill ' + str(tag), alpha=0.5)
                     try:
                         ax.scatter(values[0,0],values[0,1],values[0,2], c = colors[tag], label = "start")
                         #ax.scatter(values[-1,0],values[-1,1],values[-1,2], c = 'blue' , label = "end")        

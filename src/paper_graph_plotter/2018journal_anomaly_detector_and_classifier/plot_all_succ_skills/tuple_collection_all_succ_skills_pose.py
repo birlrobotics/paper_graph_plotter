@@ -22,6 +22,7 @@ if __name__ == '__main__':
     data_path = "/home/birl-spai-ubuntu14/baxter_ws/src/SPAI/smach_based_introspection_framework/birl_anomaly_dataset/anomaly_detection_feature_selection_folder/No.0 filtering scheme/whole_experiment"
     experience_tuple = []
     experience = namedtuple("Experience", field_names = ["state", "action", "reward", "next_state", "done"])
+    sensor_info=[]
 
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
         df = pd.read_csv(csv)
@@ -53,18 +54,18 @@ if __name__ == '__main__':
                                 #    'baxter_enpoint_pose.pose.orientation.z',
                                 #    'baxter_enpoint_pose.pose.orientation.w',
 
-                                #    'baxter_enpoint_pose.twist.angular.norm', # angular
+                                   'baxter_enpoint_pose.twist.angular.norm', # angular
                                 #    'baxter_enpoint_pose.twist.angular.x',
                                 #    'baxter_enpoint_pose.twist.angular.y',
                                 #    'baxter_enpoint_pose.twist.angular.z',
 
-                                #    'baxter_enpoint_pose.twist.linear.norm', # linear
+                                   'baxter_enpoint_pose.twist.linear.norm', # linear
                                 #    'baxter_enpoint_pose.twist.linear.x',
                                 #    'baxter_enpoint_pose.twist.linear.y',
                                 #    'baxter_enpoint_pose.twist.linear.z',
                                 
-                                #    'robotiq_force_sensor.wrench.force.norm', # force
-                                #    'robotiq_force_sensor.wrench.torque.norm', # force
+                                   'robotiq_force_sensor.wrench.force.norm', # force
+                                   'robotiq_force_sensor.wrench.torque.norm', # force
 
                                 #    'wrench.force.x',
                                 #    'wrench.force.y',
@@ -76,10 +77,10 @@ if __name__ == '__main__':
 
                     values = tag_df[select_list].values
                     
-                    position_list = ['baxter_enpoint_pose.pose.position.x',# position
-                                'baxter_enpoint_pose.pose.position.y',
-                                'baxter_enpoint_pose.pose.position.z',
-                                ]
+                    # position_list = ['baxter_enpoint_pose.pose.position.x',# position
+                    #             'baxter_enpoint_pose.pose.position.y',
+                    #             'baxter_enpoint_pose.pose.position.z',
+                    #             ]
                     # state = values[0]
                     # next_state = values[-1]
                     if len(values) !=0:
@@ -97,8 +98,9 @@ if __name__ == '__main__':
                         done = False
                     e =  experience(state, action, reward, next_state, done)
         experience_tuple.append(e)
-        
+        sensor_info.append(values)
 
                         
         # if i > 300: break
-    np.save("experience_tuple_no_recovery_skill_positions.npy", experience_tuple)
+    np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
+    np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
