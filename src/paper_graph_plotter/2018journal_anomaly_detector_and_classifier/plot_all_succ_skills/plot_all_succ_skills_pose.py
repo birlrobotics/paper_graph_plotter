@@ -18,7 +18,7 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
     
-    data_path = '/home/birl-spai-ubuntu14/baxter_ws/src/SPAI/smach_based_introspection_framework/birl_anomaly_dataset/anomaly_detection_feature_selection_folder/No.0 filtering scheme/successful_skills/skill 3'
+    data_path = '/home/birl-spai-ubuntu14/baxter_ws/src/SPAI/smach_based_introspection_framework/birl_anomaly_dataset/anomaly_detection_feature_selection_folder/No.0 filtering scheme/successful_skills/test_skill123'
     
     fig = plt.figure()
     ax = fig.gca(projection='3d', adjustable='box')
@@ -28,6 +28,7 @@ if __name__ == '__main__':
         print csv
         print 
 #        ax.set_title("Multimodal signals of norminal execution #%s" %(i+1))
+#       
         df = pd.read_csv(csv)
         s_t = df.iloc[0, 0]
         df.iloc[:, 0] = df.iloc[:, 0]-s_t

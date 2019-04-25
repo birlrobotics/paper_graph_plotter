@@ -23,6 +23,10 @@ if __name__ == '__main__':
     experience_tuple = []
     experience = namedtuple("Experience", field_names = ["state", "action", "reward", "next_state", "done"])
     sensor_info=[]
+    tag_info=[]
+    sensor_info_et=[]
+    tag_info_et=[]
+
 
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
         df = pd.read_csv(csv)
@@ -76,7 +80,7 @@ if __name__ == '__main__':
                                 ]
 
                     values = tag_df[select_list].values
-                    
+                    sensor_values = df[select_list].values
                     # position_list = ['baxter_enpoint_pose.pose.position.x',# position
                     #             'baxter_enpoint_pose.pose.position.y',
                     #             'baxter_enpoint_pose.pose.position.z',
@@ -98,9 +102,23 @@ if __name__ == '__main__':
                         done = False
                     e =  experience(state, action, reward, next_state, done)
         experience_tuple.append(e)
-        sensor_info.append(values)
+        # sensor_info.extend(sensor_values)
+        sensor_info.extend(values)
+        for i in range(len(values)):
+            tag_info.extend([action])
+
+        sensor_info_et.append(state)
+        tag_info_et.extend([action])
+
 
                         
         # if i > 300: break
-    np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
+    # np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
     np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
+    np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
+
+    np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
+    np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
+        # f = open('experience_tuple_no_recovery_skill_pos.txt','w')
+        # f.write(str(experience_tuple))
+        # f.close()

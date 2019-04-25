@@ -19,6 +19,7 @@ if __name__ == '__main__':
     f,axarr = plt.subplots(nrows=nfiles, ncols=1, sharex=True, figsize=(8, 7))
     f.tight_layout()
     plt.subplots_adjust(bottom=0.1)
+    
     for i, csv in enumerate(glob.glob(os.path.join(dir_of_this_script, "multi_whole_success_exps", "*", "*csv"))):
         print i
         print csv
