@@ -12,6 +12,8 @@ import pandas as pd
 from collections import OrderedDict
 import ipdb
 coloredlogs.install()
+# Number of plotted file
+MAXIMUM_FILE_PLOT = 1
 
 if __name__ == '__main__':
     logger = logging.getLogger()
@@ -28,22 +30,27 @@ if __name__ == '__main__':
               9:'y'
                   }
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
+        # compute the relative time
         df = pd.read_csv(csv)
         s_t = df.iloc[0, 0]
         df.iloc[:, 0] = df.iloc[:, 0]-s_t
-
+        
+        # take out the tag time range ()
         tag_ranges = pickle.load(open(os.path.join(os.path.dirname(csv), 'tag_ranges.pkl'), 'rb'))
         tag_stime = []
+        # compute the relative time
         for tag, (st, et) in tag_ranges:
             tag_stime.append((tag, st.to_sec()-s_t, et.to_sec()-s_t))
         
 
         for tag, start, end in tag_stime:
+            # plot tag 3,4,5,7,8,9. why there is -3?
             if int(tag) != 0:
                 if int(tag) < 0 or int(tag) >= 1000:
                     print ('Ignore the anomaly tag < 0 or tag >= 1000')
                     continue
                 else:
+                    # extract the relative time range of a specific tag.
                     tag_df = df.loc[(df['Unnamed: 0'] >= start) & (df['Unnamed: 0'] <= end)]
                     select_list = ['baxter_enpoint_pose.pose.position.x',
                                    'baxter_enpoint_pose.pose.position.y',
@@ -51,13 +58,14 @@ if __name__ == '__main__':
                     values = tag_df[select_list].values
                     # ax.plot(values[:,0],values[:,1],values[:,2], color=colors[tag], label='Skill ' + str(tag), alpha=0.5)
                     try:
+                        # Just plot start point
                         ax.scatter(values[0,0],values[0,1],values[0,2], c = colors[tag], label ='Skill ' + str(tag), alpha=0.5)
                         #ax.scatter(values[-1,0],values[-1,1],values[-1,2], c = 'blue' , label = "end")        
                     except Exception as e:
                         logger.error("error encountered ")
                         continue
                     
-        if i > 300: break
+        if (i+1) >= MAXIMUM_FILE_PLOT: break
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))
     plt.legend(by_label.values(), by_label.keys())

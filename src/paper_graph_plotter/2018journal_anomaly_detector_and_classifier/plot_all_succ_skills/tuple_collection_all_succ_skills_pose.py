@@ -37,7 +37,6 @@ if __name__ == '__main__':
         tag_stime = []
         for tag, (st, et) in tag_ranges:
             tag_stime.append((tag, st.to_sec()-s_t, et.to_sec()-s_t))
-        
 
         for tag, start, end in tag_stime:
             if int(tag) != 0:
@@ -48,6 +47,7 @@ if __name__ == '__main__':
                 #     print ('Ignore the anomaly tag < 0 or tag >= 1000')
                 #     continue
                 else:
+                    # tag_df: extract the data within the time range (start, end)
                     tag_df = df.loc[(df['Unnamed: 0'] >= start) & (df['Unnamed: 0'] <= end)]
                     select_list = ['baxter_enpoint_pose.pose.position.x',# position
                                     'baxter_enpoint_pose.pose.position.y',
@@ -70,7 +70,6 @@ if __name__ == '__main__':
                                 
                                    'robotiq_force_sensor.wrench.force.norm', # force
                                    'robotiq_force_sensor.wrench.torque.norm', # force
-
                                 #    'wrench.force.x',
                                 #    'wrench.force.y',
                                 #    'wrench.force.z',
@@ -78,15 +77,9 @@ if __name__ == '__main__':
                                 #    'wrench.torque.y',
                                 #    'wrench.torque.z'
                                 ]
-
+                    # extract the specific data from the tag_df
                     values = tag_df[select_list].values
                     sensor_values = df[select_list].values
-                    # position_list = ['baxter_enpoint_pose.pose.position.x',# position
-                    #             'baxter_enpoint_pose.pose.position.y',
-                    #             'baxter_enpoint_pose.pose.position.z',
-                    #             ]
-                    # state = values[0]
-                    # next_state = values[-1]
                     if len(values) !=0:
                         state = values[0]
                         next_state = values[-1]
@@ -107,15 +100,15 @@ if __name__ == '__main__':
         for i in range(len(values)):
             tag_info.extend([action])
 
-        sensor_info_et.append(state)
+        sensor_info_et.append(next_state)
         tag_info_et.extend([action])
 
 
                         
         # if i > 300: break
     # np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
-    np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
-    np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
+    # np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
+    # np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
 
     np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
     np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
