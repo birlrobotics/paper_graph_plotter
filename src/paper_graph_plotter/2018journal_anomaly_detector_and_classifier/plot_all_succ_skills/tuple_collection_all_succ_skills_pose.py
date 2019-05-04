@@ -107,7 +107,7 @@ if __name__ == '__main__':
                         
         # if i > 300: break
     # np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
-    # np.save("experience_tuple_no_recovery_skill_7dim_500.npy", experience_tuple)
+    np.save("experience_tuple_no_recovery_skill_7dim_500.npy", experience_tuple)
     # np.save("experience_tuple_no_recovery_skill_7dim_50000.npy", experience_tuple)
     # np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
     # np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
