@@ -113,12 +113,12 @@ if __name__ == '__main__':
 
                         
         # if i > 300: break
-    # np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
-    np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
-    np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
+    np.save("experience_tuple_no_recovery_skill_pos.npy", experience_tuple)
+    # np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
+    # np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
 
-    np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
-    np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
+    # np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
+    # np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
         # f = open('experience_tuple_no_recovery_skill_pos.txt','w')
         # f.write(str(experience_tuple))
         # f.close()
