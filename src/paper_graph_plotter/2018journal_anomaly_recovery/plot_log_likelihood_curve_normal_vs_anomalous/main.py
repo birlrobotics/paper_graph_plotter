@@ -1,4 +1,3 @@
-
 from sklearn.externals import joblib
 from birl_hmm.hmm_training import hmm_util
 import glob
@@ -8,6 +7,8 @@ import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
 import numpy as np
 import ipdb
+plt.rcParams['font.family'] = 'Times New Roman'
+plt.rcParams['font.size'] = 12
 
 def rgba_to_rgb_using_white_bg(rgb_array, alpha):
     ret = [i*alpha+(1-alpha) for i in rgb_array]+[1]
@@ -73,7 +74,9 @@ if __name__ == '__main__':
     ax.legend(handles=[succ_line, red_line, black_line, blue_patch])
     
     ax.set_ylabel("Log-likelihood")
-    ax.set_xlabel("Time step")
+    ax.set_xlabel("Time(s)")
     ax.set_title("Log-likelihood Curves: Normal VS Anomalous Trials")
 
-    fig.savefig('log-likelihood curves.eps')
+    fig.savefig('log-likelihood curves.eps', format='eps', dpi=300)
+    fig.savefig('log-likelihood curves.png', format='png', dpi=300)    
+    plt.show()

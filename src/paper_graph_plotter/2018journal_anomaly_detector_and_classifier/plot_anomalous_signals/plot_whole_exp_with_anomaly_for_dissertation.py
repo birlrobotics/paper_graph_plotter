@@ -7,14 +7,16 @@ import pandas as pd
 import ipdb
 
 coloredlogs.install()
+plt.rcParams['font.family']='Times New Roman'
+plt.rcParams['font.size']= 12
 
 if __name__ == '__main__':
     logger = logging.getLogger("plot_anomalous_signals.main")
     dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
     for i, csv in enumerate(glob.glob(os.path.join(dir_of_this_script, "whole_exp_with_one_anomaly", "*", "*csv"))):
-        f,ax = plt.subplots(nrows=1, ncols=1, figsize=(6,3))
-        fontsize=12
-        #ax.set_title("Multimodal Signals of Tool Collision", fontsize=fontsize)
+        f,ax = plt.subplots(nrows=1, ncols=1, figsize=(8,5))
+        plt.subplots_adjust(bottom=0.2)
+        ax.set_title("Multimodal Signals of Tool Collision")
         relpath = os.path.relpath(csv, os.path.join(dir_of_this_script))
         logger.info(relpath) 
 
@@ -51,15 +53,15 @@ if __name__ == '__main__':
                     c = 'green'
                 ax.axvline(start, c=c)
                 skill += 1
-                ax.text(start, ymax-0.05*(ymax-ymin), 'skill %s'%skill, color=c, fontsize=fontsize, rotation=-90)
+                ax.text(start, ymax-0.05*(ymax-ymin), 'skill %s'%skill, color=c, rotation=-90)
             else:
                 print ('Ignore the useless tag=0')
                 continue
                 ax.axvline(start, c = 'gray')
         
-        #ax.text(anomaly_time, ymax-0.05*(ymax-ymin), anomaly_type, color='red', fontsize=fontsize, rotation=-90)
-        ax.set_xlabel("Time(secs)", fontsize=fontsize)
-        ax.set_ylabel("Scaled Value", fontsize=fontsize)
+        #ax.text(anomaly_time, ymax-0.05*(ymax-ymin), anomaly_type, color='red', rotation=-90)
+        ax.set_xlabel("Time(s)")
+        ax.set_ylabel("Scaled Value")
         output_dir = os.path.join(dir_of_this_script, 'plots')        
         if not os.path.isdir(output_dir):
             os.makedirs(output_dir)
