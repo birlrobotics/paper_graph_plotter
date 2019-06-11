@@ -18,7 +18,7 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     dir_of_this_script = os.path.dirname(os.path.realpath(__file__))
     
-    data_path = '/home/birl-spai-ubuntu14/baxter_ws/src/SPAI/smach_based_introspection_framework/birl_anomaly_dataset/anomaly_detection_feature_selection_folder/No.0 filtering scheme/successful_skills/test_skill123'
+    data_path = '/home/birl-spai-ubuntu14/baxter_ws/src/SPAI/smach_based_introspection_framework/jim_folder_have_tag_range/anomaly_detection_feature_selection_folder/successful_skills/skill 3'
     
     fig = plt.figure()
     ax = fig.gca(projection='3d', adjustable='box')
