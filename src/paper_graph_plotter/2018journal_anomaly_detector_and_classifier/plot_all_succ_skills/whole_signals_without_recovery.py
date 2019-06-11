@@ -26,6 +26,8 @@ if __name__ == '__main__':
     tag_info=[]
     sensor_info_et=[]
     tag_info_et=[]
+    values_tags=[]
+    values_tags_trial_nums=[]
 
 
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
@@ -96,12 +98,17 @@ if __name__ == '__main__':
                     else:
                         reward = -1
                         done = False
-                    e =  experience(state, action, reward, next_state, done)
-        experience_tuple.append(e)
-        # sensor_info.extend(sensor_values)
-        sensor_info.extend(values)
-        for i in range(len(values)):
-            tag_info.extend([action])
+                    e = experience(state, action, reward, next_state, done)
+                    experience_tuple.append(e)
+                    # sensor_info.extend(sensor_values)
+                    sensor_info.extend(values)
+                    for i in range(len(values)):
+                        tag_info.extend([action])
+                    
+                    values_tag = np.insert(values,-1,values=tag, axis=1)
+                    values_tags.extend(values_tag)
+        values_tags_trial_num = np.insert(values_tags, -1,values=i, axis=1)
+        values_tags_trial_nums.extend(values_tags_trial_num)
 
         # sensor_info_et.append(next_state)
         # tag_info_et.extend([action])
@@ -114,8 +121,14 @@ if __name__ == '__main__':
     # np.save("experience_tuple_no_recovery_skill_7dim_50000.npy", experience_tuple)
     # np.save("sensor_info_no_recovery_skill_pos.npy", sensor_info)
     # np.save("tag_info_no_recovery_skill_pos.npy", tag_info)
-    np.save("sensor_info_no_recovery_skill_pos_19dim.npy", sensor_info)
-    np.save("tag_info_no_recovery_skill_pos_19dim.npy", tag_info)
+    # np.save("sensor_info_no_recovery_skill_pos_20dim_recovery.npy", sensor_info)
+    # np.save("tag_info_no_recovery_skill_pos_20dim_recovery.npy", tag_info)
+    # np.save("tag_info_no_recovery_skill_pos_21dim_recovery.npy", tag_info)
+    np.save("tag_info_no_recovery_skills_23dim_recovery_values_tags_trial_nums.npy", values_tags_trial_nums)
+
+    print(np.shape(sensor_info))
+    print(np.shape(tag_info))
+    print(np.shape(values_tags_trial_nums))
 
     # np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
     # np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
