@@ -83,32 +83,34 @@ if __name__ == '__main__':
                                    'tactile_static_data.right.std'
                                 ]
                     # extract the specific data from the tag_df
+                    # extract the specific data from the tag_df
                     values = tag_df[select_list].values
                     # sensor_values = df[select_list].values
-                    if len(values) !=0:
-                        state = values[0]
-                        next_state = values[-1]
-                    else:
-                        continue
+                    # if len(values) !=0:
+                    #     state = values[0]
+                    #     next_state = values[-1]
+                    # else:
+                    #     continue
                  
-                    action = tag
-                    if tag == 8:
-                        reward = 100
-                        done = True
-                    else:
-                        reward = -1
-                        done = False
-                    e = experience(state, action, reward, next_state, done)
-                    experience_tuple.append(e)
+                    # action = tag
+                    # if tag == 8:
+                    #     reward = 100
+                    #     done = True
+                    # else:
+                    #     reward = -1
+                    #     done = False
+                    # e = experience(state, action, reward, next_state, done)
+                    # experience_tuple.append(e)
                     # sensor_info.extend(sensor_values)
                     sensor_info.extend(values)
-                    for i in range(len(values)):
-                        tag_info.extend([action])
+                    for ii in range(len(values)):
+                        tag_info.extend([tag])
                     
-                    values_tag = np.insert(values,-1,values=tag, axis=1)
+                    values_tag = np.insert(values,0,values=tag, axis=1)
                     values_tags.extend(values_tag)
-        values_tags_trial_num = np.insert(values_tags, -1,values=i, axis=1)
+        values_tags_trial_num = np.insert(values_tags,0,values=i, axis=1)
         values_tags_trial_nums.extend(values_tags_trial_num)
+
 
         # sensor_info_et.append(next_state)
         # tag_info_et.extend([action])
@@ -129,6 +131,8 @@ if __name__ == '__main__':
     print(np.shape(sensor_info))
     print(np.shape(tag_info))
     print(np.shape(values_tags_trial_nums))
+    print(values_tags_trial_nums[0])
+    print(values_tags_trial_nums[7000])
 
     # np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
     # np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
