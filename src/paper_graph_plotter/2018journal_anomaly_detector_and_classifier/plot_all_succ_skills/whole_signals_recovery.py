@@ -60,18 +60,18 @@ if __name__ == '__main__':
                                    'baxter_enpoint_pose.pose.orientation.z',
                                    'baxter_enpoint_pose.pose.orientation.w',
 
-                                #    'baxter_enpoint_pose.twist.angular.norm', # angular
+                                   'baxter_enpoint_pose.twist.angular.norm', # angular
                                    'baxter_enpoint_pose.twist.angular.x',
                                    'baxter_enpoint_pose.twist.angular.y',
                                    'baxter_enpoint_pose.twist.angular.z',
 
-                                #    'baxter_enpoint_pose.twist.linear.norm', # linear
+                                   'baxter_enpoint_pose.twist.linear.norm', # linear
                                    'baxter_enpoint_pose.twist.linear.x',
                                    'baxter_enpoint_pose.twist.linear.y',
                                    'baxter_enpoint_pose.twist.linear.z',
                                 
-                                #    'robotiq_force_sensor.wrench.force.norm', # force
-                                #    'robotiq_force_sensor.wrench.torque.norm', # force
+                                   'robotiq_force_sensor.wrench.force.norm', # force
+                                   'robotiq_force_sensor.wrench.torque.norm', # force
                                    'wrench.force.x',
                                    'wrench.force.y',
                                    'wrench.force.z',
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     # np.save("sensor_info_no_recovery_skill_pos_20dim_recovery.npy", sensor_info)
     # np.save("tag_info_no_recovery_skill_pos_20dim_recovery.npy", tag_info)
     # np.save("tag_info_no_recovery_skill_pos_21dim_recovery.npy", tag_info)
-    np.save("tag_info_have_recovery_skills_23dim_recovery_values_tags_trial_nums.npy", values_tags_trial_nums)
+    np.save("tag_info_have_recovery_skills_27dim_recovery_values_tags_trial_nums.npy", values_tags_trial_nums)
 
     print(np.shape(sensor_info))
     print(np.shape(tag_info))

@@ -26,11 +26,12 @@ if __name__ == '__main__':
     tag_info=[]
     sensor_info_et=[]
     tag_info_et=[]
-    values_tags=[]
     values_tags_trial_nums=[]
 
 
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
+        values_tags=[]
+
         df = pd.read_csv(csv)
         s_t = df.iloc[0, 0]
         df.iloc[:, 0] = df.iloc[:, 0]-s_t
@@ -42,8 +43,8 @@ if __name__ == '__main__':
 
         for tag, start, end in tag_stime:
             if int(tag) != 0:
-                if int(tag) < 0 or int(tag) >= 1000:
-                    print ('Ignore the anomaly tag < 0 or tag >= 1000')
+                if int(tag) <= 0 or int(tag) >= 1000:
+                    print ('Ignore the anomaly tag <= 0 or tag >= 1000')
                     continue
                 # if int(tag) < 0:
                 #     print ('Ignore the anomaly tag < 0 or tag >= 1000')
@@ -60,18 +61,18 @@ if __name__ == '__main__':
                                    'baxter_enpoint_pose.pose.orientation.z',
                                    'baxter_enpoint_pose.pose.orientation.w',
 
-                                #    'baxter_enpoint_pose.twist.angular.norm', # angular
+                                   'baxter_enpoint_pose.twist.angular.norm', # angular
                                    'baxter_enpoint_pose.twist.angular.x',
                                    'baxter_enpoint_pose.twist.angular.y',
                                    'baxter_enpoint_pose.twist.angular.z',
 
-                                #    'baxter_enpoint_pose.twist.linear.norm', # linear
+                                   'baxter_enpoint_pose.twist.linear.norm', # linear
                                    'baxter_enpoint_pose.twist.linear.x',
                                    'baxter_enpoint_pose.twist.linear.y',
                                    'baxter_enpoint_pose.twist.linear.z',
                                 
-                                #    'robotiq_force_sensor.wrench.force.norm', # force
-                                #    'robotiq_force_sensor.wrench.torque.norm', # force
+                                   'robotiq_force_sensor.wrench.force.norm', # force
+                                   'robotiq_force_sensor.wrench.torque.norm', # force
                                    'wrench.force.x',
                                    'wrench.force.y',
                                    'wrench.force.z',
@@ -123,8 +124,8 @@ if __name__ == '__main__':
             data[22] = 1
         values_tags_trial_nums_clean.append(data)
 
-        if i % 3 ==1:
-            values_tags_trial_nums_thinnner.append(data)
+        # if i % 3 ==1:
+        #     values_tags_trial_nums_thinnner.append(data)
 
 
                         
@@ -137,8 +138,8 @@ if __name__ == '__main__':
     # np.save("sensor_info_no_recovery_skill_pos_20dim_recovery.npy", sensor_info)
     # np.save("tag_info_no_recovery_skill_pos_20dim_recovery.npy", tag_info)
     # np.save("tag_info_no_recovery_skill_pos_21dim_recovery.npy", tag_info)
-    np.save("tag_info_no_recovery_skills_23dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
-    np.save("tag_info_no_recovery_skills_23dim_recovery_values_tags_trial_nums_thinner.npy", values_tags_trial_nums_thinnner)
+    np.save("tag_info_no_recovery_skills_27dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
+    # np.save("tag_info_no_recovery_skills_27dim_recovery_values_tags_trial_nums_thinner.npy", values_tags_trial_nums_thinnner)
 
 
     print(np.shape(sensor_info))
@@ -148,7 +149,7 @@ if __name__ == '__main__':
     print(values_tags_trial_nums[7000])
 
     print(np.shape(values_tags_trial_nums_clean))
-    print(np.shape(values_tags_trial_nums_thinnner))
+    # print(np.shape(values_tags_trial_nums_thinnner))
 
     # np.save("sensor_info_no_recovery_skill_pos_et.npy", sensor_info_et)
     # np.save("tag_info_no_recovery_skill_pos_et.npy", tag_info_et)
