@@ -43,9 +43,8 @@ if __name__ == '__main__':
 
         signals=[]
         for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
-            print i
-            print csv
-            print 
+            print(i)
+            print(csv)
     #        ax.set_title("Multimodal signals of norminal execution #%s" %(i+1))
     #       
             anomaly_type, anomaly_gentime = pickle.load(open(os.path.join(os.path.dirname(csv), 'anomaly_label_and_signal_time.pkl'), 'rb'))

@@ -51,10 +51,8 @@ if __name__ == '__main__':
         signals=[]
         label_occu=[]
         for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
-            
-            print i
-            print csv
-            print 
+            print(i)
+            print(csv)
     #        ax.set_title("Multimodal signals of norminal execution #%s" %(i+1))
     #       
             anomaly_type, anomaly_gentime = pickle.load(open(os.path.join(os.path.dirname(csv), 'anomaly_label_and_signal_time.pkl'), 'rb'))
@@ -121,8 +119,7 @@ if __name__ == '__main__':
 
             signals.append(values_trials)
         values_tags_trial_nums_clean = np.array(signals)
-
-
+        label_occu = np.array(label_occu)
 
         np.save("success_unsuccess/windows/unsuccess_skill_"+ str(skill)+"_27dim_windows.npy", values_tags_trial_nums_clean)
         np.save("success_unsuccess/windows/unsuccess_skill_"+ str(skill)+"_27dim_windows_label_occu.npy", label_occu)
