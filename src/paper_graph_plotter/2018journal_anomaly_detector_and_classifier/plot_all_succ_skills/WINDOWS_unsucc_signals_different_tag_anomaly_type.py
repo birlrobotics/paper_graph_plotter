@@ -12,6 +12,8 @@ import pandas as pd
 from collections import OrderedDict
 from collections import namedtuple
 import ipdb
+from sklearn import preprocessing
+
 coloredlogs.install()
 
 
@@ -25,7 +27,7 @@ coloredlogs.install()
 SKILL={
     # 3:{'human_collision','no_object'},
     3:{'human_collision'},
-    4:{'human_collision','tool_coolsion','no_object'},
+    4:{'human_collision','tool_collision','no_object'},
     5:{'object_slip','no_object','human_collision'},
     7:{'object_slip','wall_collision','human_collision'},
     8:{'human_collision','tool_coolsion','no_object'},
@@ -101,14 +103,16 @@ if __name__ == '__main__':
                                 'tactile_static_data.right.std'
                                 ]
                 values = df[select_list].values
-                values_clean=[]
-                for data in values:
-                    if data[23] > 0:
-                        data[23] = 1
-                    if data[24] > 0:
-                        data[24] = 1
-                    values_clean.append(data)
-
+                values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
+                values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
+                # values_clean=[]
+                # for data in values:
+                #     if data[23] > 0:
+                #         data[23] = 1
+                #     if data[24] > 0:
+                #         data[24] = 1
+                #     values_clean.append(data)
+                values_clean = values
                 values_count = []
                 for count, value in enumerate(values_clean):
                     value_c = np.append(value,all_time[count])

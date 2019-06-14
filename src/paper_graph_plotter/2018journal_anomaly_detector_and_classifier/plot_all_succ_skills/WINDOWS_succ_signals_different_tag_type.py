@@ -12,6 +12,7 @@ import pandas as pd
 from collections import OrderedDict
 from collections import namedtuple
 import ipdb
+from sklearn import preprocessing
 coloredlogs.install()
 
 if __name__ == '__main__':
@@ -29,7 +30,6 @@ if __name__ == '__main__':
             print(i)
             print(csv)
     #        ax.set_title("Multimodal signals of norminal execution #%s" %(i+1))
-    #       
             df = pd.read_csv(csv)
             s_t = df.iloc[0, 0]
             e_t = df.iloc[-1, 0]
@@ -73,13 +73,16 @@ if __name__ == '__main__':
                             'tactile_static_data.right.std'
                             ]
             values = df[select_list].values
-            values_clean=[]
-            for data in values:
-                if data[23] > 0:
-                    data[23] = 1
-                if data[24] > 0:
-                    data[24] = 1
-                values_clean.append(data)
+            values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
+            values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
+            values_clean=values
+            # values_clean=[]
+            # for data in values:
+            #     if data[23] > 0:
+            #         data[23] = 1
+            #     if data[24] > 0:
+            #         data[24] = 1
+            #     values_clean.append(data)
 
             values_count = []
             for count, value in enumerate(values_clean):
