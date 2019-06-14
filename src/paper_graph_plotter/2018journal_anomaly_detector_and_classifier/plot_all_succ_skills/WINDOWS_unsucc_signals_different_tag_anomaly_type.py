@@ -30,10 +30,10 @@ SKILL={
     4:{'human_collision','tool_collision','no_object'},
     5:{'object_slip','no_object','human_collision'},
     7:{'object_slip','wall_collision','human_collision'},
-    8:{'human_collision','tool_coolsion','no_object'},
+    8:{'human_collision','tool_collision','no_object'},
     # 9:{'human_collision'},
-    1000:{'tool_coolsion'},
-    1001:{'human_collision','tool_coolsion','object_slip'},
+    1000:{'tool_collision'},
+    1001:{'human_collision','tool_collision','object_slip'},
     # 1002:{'Unlabeled'},
     1003:{}
 }
