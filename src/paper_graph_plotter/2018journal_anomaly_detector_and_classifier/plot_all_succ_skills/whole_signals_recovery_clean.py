@@ -12,6 +12,8 @@ import pandas as pd
 from collections import OrderedDict
 from collections import namedtuple
 import ipdb
+from sklearn import preprocessing
+
 coloredlogs.install()
 
 
@@ -31,7 +33,7 @@ if __name__ == '__main__':
 
 
     for i, csv in enumerate(glob.glob(os.path.join(data_path, "*", "*csv"))):
-        values_tags=[]
+        values_tags_nums=[]
         df = pd.read_csv(csv)
         s_t = df.iloc[0, 0]
         df.iloc[:, 0] = df.iloc[:, 0]-s_t
@@ -84,39 +86,19 @@ if __name__ == '__main__':
                                    'tactile_static_data.left.std', #tactile
                                    'tactile_static_data.right.std'
                                 ]
+                    # extract the specific data from the tag_df
+
                     values = tag_df[select_list].values
+                    if len(values) >= 10:
+                        values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
+                        values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
+                        values_tags = np.insert(values,0,values=tag, axis=1)
+                        values_tags_num = np.insert(values_tags,0,values=i, axis=1)
+                        values_tags_nums.append(values_tags_num)
 
-                    # sensor_info.extend(values)
-                    # for ii in range(len(values)):
-                    #     tag_info.extend([tag])
-                    
-                    values_tag = np.insert(values,0,values=tag, axis=1)
-                    values_tags.extend(values_tag)
-        values_tags_trial_num = np.insert(values_tags,0,values=i, axis=1)
-        values_tags_trial_nums.extend(values_tags_trial_num)
-    
-    
-    values_tags_trial_nums_clean = []
-    values_tags_trial_nums_thinnner=[]
+        values_tags_trial_nums.extend(values_tags_nums)
 
-    for i, data in enumerate(values_tags_trial_nums):
-        if data[21] > 0:
-            data[21] = 1
-        if data[22] > 0:
-            data[22] = 1
-        values_tags_trial_nums_clean.append(data)
+    values_tags_trial_nums_clean = values_tags_trial_nums
+    np.save("windows_have_recovery_skills_27dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
 
-        # if i % 3 ==1:
-        #     values_tags_trial_nums_thinnner.append(data)
-
-    np.save("tag_info_have_recovery_skills_27dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
-    # np.save("tag_info_have_recovery_skills_27dim_recovery_values_tags_trial_nums_thinner.npy", values_tags_trial_nums_thinnner)
-
-    print(np.shape(sensor_info))
-    print(np.shape(tag_info))
-    print(np.shape(values_tags_trial_nums))
-    print(values_tags_trial_nums[0])
-    print(values_tags_trial_nums[7000])
-
-    # print(np.shape(values_tags_trial_nums_clean))
-    print(np.shape(values_tags_trial_nums_thinnner))
+    print(np.shape(values_tags_trial_nums_clean))

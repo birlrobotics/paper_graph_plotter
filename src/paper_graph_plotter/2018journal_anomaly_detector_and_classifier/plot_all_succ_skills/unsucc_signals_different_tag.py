@@ -85,8 +85,9 @@ if __name__ == '__main__':
                             'tactile_static_data.right.std'
                             ]
             values = df[select_list].values
-            values_trials = np.insert(values,0,values=i, axis=1)
-            signals.extend(values_trials)
+            if len(values) > 10:
+                values_trials = np.insert(values,0,values=i, axis=1)
+                signals.extend(values_trials)
 
         values_tags_trial_nums_clean = []
         values_tags_trial_nums_thinnner=[]

@@ -69,7 +69,6 @@ if __name__ == '__main__':
             if anomaly_type in anomaly_names and anomaly_time > 0:
 
                 experiment=i
-                label_occu.append([experiment, skill,anomaly_type, anomaly_time])
 
                 select_list = ['baxter_enpoint_pose.pose.position.x',# position
                                 'baxter_enpoint_pose.pose.position.y',
@@ -103,23 +102,18 @@ if __name__ == '__main__':
                                 'tactile_static_data.right.std'
                                 ]
                 values = df[select_list].values
-                values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
-                values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
-                # values_clean=[]
-                # for data in values:
-                #     if data[23] > 0:
-                #         data[23] = 1
-                #     if data[24] > 0:
-                #         data[24] = 1
-                #     values_clean.append(data)
-                values_clean = values
-                values_count = []
-                for count, value in enumerate(values_clean):
-                    value_c = np.append(value,all_time[count])
-                    values_count.append(value_c)
-                # values_count = np.append(values, all_time, axis=1)
-                values_trials = np.insert(values_count,0,values=experiment, axis=1)
+                if len(values) > 10:
+                    values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
+                    values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
+                    values_clean = values
+                    values_count = []
+                    for count, value in enumerate(values_clean):
+                        value_c = np.append(value,all_time[count])
+                        values_count.append(value_c)
+                    # values_count = np.append(values, all_time, axis=1)
+                    values_trials = np.insert(values_count,0,values=experiment, axis=1)
 
+                    label_occu.append([experiment, skill,anomaly_type, anomaly_time])
 
             signals.append(values_trials)
         values_tags_trial_nums_clean = np.array(signals)
