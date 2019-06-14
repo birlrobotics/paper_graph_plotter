@@ -43,6 +43,7 @@ if __name__ == '__main__':
         df = pd.read_csv(csv)
         s_t = df.iloc[0, 0]
         df.iloc[:, 0] = df.iloc[:, 0]-s_t
+        all_time = np.array(df.iloc[:, 0])
 
         tag_ranges = pickle.load(open(os.path.join(os.path.dirname(csv), 'tag_ranges.pkl'), 'rb'))
         tag_stime = []
@@ -101,9 +102,9 @@ if __name__ == '__main__':
                             values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
                             values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
 
-                            for ii in range(len(values)):
-                                tag_info.extend([tag])
-                            
+                            # for ii,value in enumerate(values):
+                            #     values_count[ii] = np.append(values)
+
                             values_tag = np.insert(values,0,values=tag, axis=1)
                             values_tags.extend(values_tag)
 

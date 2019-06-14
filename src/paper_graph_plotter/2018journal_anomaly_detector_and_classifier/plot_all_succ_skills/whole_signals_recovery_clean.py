@@ -44,7 +44,9 @@ if __name__ == '__main__':
         for tag, (st, et) in tag_ranges:
             tag_stime.append((tag, st.to_sec()-s_t, et.to_sec()-s_t))
 
+        last_end = 0
         for tag, start, end in tag_stime:
+            Times=[]
             if int(tag) != 0:
                 # if int(tag) < 0 or int(tag) >= 1000:
                 #     print ('Ignore the anomaly tag < 0 or tag >= 1000')
@@ -55,6 +57,9 @@ if __name__ == '__main__':
                 else:
                     # tag_df: extract the data within the time range (start, end)
                     tag_df = df.loc[(df['Unnamed: 0'] >= start) & (df['Unnamed: 0'] <= end)]
+                    tag_start = 0
+                    tag_end = end - start
+
                     select_list = ['baxter_enpoint_pose.pose.position.x',# position
                                     'baxter_enpoint_pose.pose.position.y',
                                     'baxter_enpoint_pose.pose.position.z',
@@ -87,18 +92,33 @@ if __name__ == '__main__':
                                    'tactile_static_data.right.std'
                                 ]
                     # extract the specific data from the tag_df
+                
+                    last_start =start
+                    Times = np.append(Times,last_end) ### ground times to sequens which have usdful skill
+                    for T in range(len(tag_df)):
+                        ground_time = tag_df.iloc[T,0] - last_start + last_end
+                        Times = np.append(Times,ground_time)
+                    last_end=[Times[-1]]
 
                     values = tag_df[select_list].values
                     if len(values) >= 10:
                         values[:,23] = preprocessing.minmax_scale(values[:,23],feature_range=(0,1))
                         values[:,24] = preprocessing.minmax_scale(values[:,24],feature_range=(0,1))
-                        values_tags = np.insert(values,0,values=tag, axis=1)
+                        
+                        values_count=[]
+                        for ii, value in enumerate(values):
+                            value = np.append(value,Times[ii])
+                            value = np.append(value,ii)
+                            values_count.append(value)
+                        
+                        values_tags = np.insert(values_count,0,values=tag, axis=1)
                         values_tags_num = np.insert(values_tags,0,values=i, axis=1)
                         values_tags_nums.append(values_tags_num)
+                        Times=[]
 
         values_tags_trial_nums.extend(values_tags_nums)
 
     values_tags_trial_nums_clean = values_tags_trial_nums
-    np.save("data/windows_have_recovery_skills_27dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
+    np.save("data/windows_have_recovery_skills_29dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
 
     print(np.shape(values_tags_trial_nums_clean))
