@@ -90,8 +90,8 @@ if __name__ == '__main__':
 
 
             # if i > 300: break
-        np.save("success_unsuccess/windows/success_skill_"+ str(skill)+"_27dim_windows.npy", values_tags_trial_nums_clean)
-        np.save("success_unsuccess/windows/success_skill_"+ str(skill)+"_27dim_windows_label_occu.npy", label_occu)
+        np.save("data/windows/success_skill_"+ str(skill)+"_27dim_windows.npy", values_tags_trial_nums_clean)
+        np.save("data/windows/success_skill_"+ str(skill)+"_27dim_windows_label_occu.npy", label_occu)
 
         print(np.shape(values_tags_trial_nums_clean))
         print(np.shape(label_occu))

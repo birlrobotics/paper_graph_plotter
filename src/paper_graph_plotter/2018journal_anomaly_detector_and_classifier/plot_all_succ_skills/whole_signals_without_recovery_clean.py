@@ -98,6 +98,6 @@ if __name__ == '__main__':
 
     values_tags_trial_nums_clean = values_tags_trial_nums
 
-    np.save("windows_no_recovery_skills_27dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
+    np.save("data/windows_no_recovery_skills_27dim_recovery_values_tags_trial_nums_clean.npy", values_tags_trial_nums_clean)
 
     print(np.shape(values_tags_trial_nums_clean))

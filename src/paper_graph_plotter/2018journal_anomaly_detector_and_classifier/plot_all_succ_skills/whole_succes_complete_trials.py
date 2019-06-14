@@ -114,6 +114,6 @@ if __name__ == '__main__':
             print ('It is not a whole frequency completed experiments which without any recoveryskill ')
 
     values_tags_trial_nums_clean=values_tags_trial_nums
-    np.save("whole_complete_no_recovery.npy", values_tags_trial_nums_clean)
+    np.save("data/whole_complete_no_recovery.npy", values_tags_trial_nums_clean)
 
     print(np.shape(values_tags_trial_nums_clean))
