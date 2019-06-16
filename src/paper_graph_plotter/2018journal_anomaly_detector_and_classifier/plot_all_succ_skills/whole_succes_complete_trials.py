@@ -50,17 +50,18 @@ if __name__ == '__main__':
         tag_set = []
         for tag, (st, et) in tag_ranges:
             tag_stime.append((tag, st.to_sec()-s_t, et.to_sec()-s_t))
-            if int(tag) > 0 and int(tag) < 1000:
-                tag_set.append(int(tag))
-        tag_set_select = select_tag_number_occu(tag_set)
 
-        #     if tag >=0:
-        #         if int(tag) > 0 and int(tag) < 1000:
-        #             tag_set.append(int(tag))
-        #     else:
-        #         tag_set=[]
-        #         break
+        #     if int(tag) > 0 and int(tag) < 1000:
+        #         tag_set.append(int(tag))
         # tag_set_select = select_tag_number_occu(tag_set)
+
+            if tag >=0:
+                if int(tag) > 0 and int(tag) < 1000:
+                    tag_set.append(int(tag))
+            else:
+                tag_set=[]
+                # break
+        tag_set_select = select_tag_number_occu(tag_set)
         
         if len(tag_set)==6 and len(tag_set_select)==6:
             for tag, start, end in tag_stime:
